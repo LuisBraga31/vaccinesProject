@@ -6,9 +6,6 @@ spring:
   profiles:
     active: dev
   liquibase:
-    enabled: false
     change-log: liquibase/master.yaml
   jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
+    show-sql: ${show-sql:false}

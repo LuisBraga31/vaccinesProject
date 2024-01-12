@@ -25,6 +25,7 @@ public class Patient {
     private OffsetDateTime updatedAt;
 
     @OneToMany
+    //@JoinColumn(foreignKey = @ForeignKey(name="fk_vr_history"))
     private Set<VaccineRegistration> history;
 
 }
