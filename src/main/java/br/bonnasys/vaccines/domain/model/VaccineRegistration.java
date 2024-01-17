@@ -1,4 +1,4 @@
-package br.bonnasys.vaccines.domain;
+package br.bonnasys.vaccines.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

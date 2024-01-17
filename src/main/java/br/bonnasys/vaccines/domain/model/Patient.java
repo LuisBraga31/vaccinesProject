@@ -1,4 +1,4 @@
-package br.bonnasys.vaccines.domain;
+package br.bonnasys.vaccines.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -26,6 +27,6 @@ public class Patient {
 
     @OneToMany
     //@JoinColumn(foreignKey = @ForeignKey(name="fk_vr_history"))
-    private Set<VaccineRegistration> history;
+    private List<VaccineRegistration> history;
 
 }
