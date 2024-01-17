@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
-@Table(name="healthcenter")
+@Table(name="health_center")
 public class HealthCenter {
 
     @Id
@@ -31,7 +31,7 @@ public class HealthCenter {
     private Map<Vaccine, Integer> stock;
 
     private OffsetDateTime createdAt;
-    private OffsetDateTime updateAt;
+    private OffsetDateTime updatedAt;
 
 
 }

@@ -19,6 +19,6 @@ public class Vaccine {
     private String producer;
 
     private OffsetDateTime createdAt;
-    private OffsetDateTime updateAt;
+    private OffsetDateTime updatedAt;
 
 }
