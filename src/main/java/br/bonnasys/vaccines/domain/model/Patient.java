@@ -1,7 +1,9 @@
 package br.bonnasys.vaccines.domain.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,6 +14,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="patients")
 public class Patient {
 
@@ -25,8 +29,19 @@ public class Patient {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     //@JoinColumn(foreignKey = @ForeignKey(name="fk_vr_history"))
     private List<VaccineRegistration> history;
 
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = OffsetDateTime.now();
+    }
+
+    public Patient(String name, String phone, String email, LocalDate birthdate) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birthdate = birthdate;
+    }
 }
