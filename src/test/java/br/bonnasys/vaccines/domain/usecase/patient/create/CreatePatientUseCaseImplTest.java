@@ -22,7 +22,7 @@ class CreatePatientUseCaseImplTest {
     private PatientRepository patientRepository;
 
     @Test
-    void execute() {
+    void givenValidCommandWhenCallsCreatePatientUseCaseThenAssertFields() {
         String name = "Rick Sanches";
         String email = "rick.sanches@email.com";
         String phone = "(99) 99999-9999";

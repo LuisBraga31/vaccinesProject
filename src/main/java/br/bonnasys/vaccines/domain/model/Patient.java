@@ -29,7 +29,7 @@ public class Patient {
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     //@JoinColumn(foreignKey = @ForeignKey(name="fk_vr_history"))
     private List<VaccineRegistration> history;
 
