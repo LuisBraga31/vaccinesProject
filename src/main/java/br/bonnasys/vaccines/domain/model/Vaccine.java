@@ -15,7 +15,7 @@ public class Vaccine {
     @Id
     @Column(length= 36)
     private String id;
-    private String vaccine;
+    private String name;
     private String producer;
 
     private OffsetDateTime createdAt;
