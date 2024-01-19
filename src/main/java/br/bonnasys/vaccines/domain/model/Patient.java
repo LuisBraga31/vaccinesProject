@@ -1,5 +1,6 @@
 package br.bonnasys.vaccines.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Patient {
     private OffsetDateTime updatedAt;
 
     @OneToMany
+    @JsonIgnore
     //@JoinColumn(foreignKey = @ForeignKey(name="fk_vr_history"))
     private List<VaccineRegistration> history;
 
