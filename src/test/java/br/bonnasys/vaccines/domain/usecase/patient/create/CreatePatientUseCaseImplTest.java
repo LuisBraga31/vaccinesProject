@@ -1,5 +1,6 @@
 package br.bonnasys.vaccines.domain.usecase.patient.create;
 
+
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.repository.PatientRepository;
 import org.junit.jupiter.api.Assertions;
