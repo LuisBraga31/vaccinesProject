@@ -2,7 +2,6 @@ package br.bonnasys.vaccines.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,40 +9,53 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
+@Table(name = "patients")
 @NoArgsConstructor
-@Table(name="patients")
 public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(length = 36)
     private String id;
     private String name;
     private String phone;
     private String email;
     private LocalDate birthdate;
-    private OffsetDateTime createdAt;
+    private OffsetDateTime createdAt; //yyyy-MM-ddTHH:mm:ss-Z 2024-01-11T20:59:00-03:00
     private OffsetDateTime updatedAt;
-
     @OneToMany
     @JsonIgnore
-    //@JoinColumn(foreignKey = @ForeignKey(name="fk_vr_history"))
     private List<VaccineRegistration> history;
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = OffsetDateTime.now();
-    }
 
     public Patient(String name, String phone, String email, LocalDate birthdate) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.birthdate = birthdate;
+    }
+
+    public Patient(String id,
+                   String name,
+                   String phone,
+                   String email,
+                   LocalDate birthdate,
+                   OffsetDateTime createdAt,
+                   OffsetDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = OffsetDateTime.now();
     }
 }

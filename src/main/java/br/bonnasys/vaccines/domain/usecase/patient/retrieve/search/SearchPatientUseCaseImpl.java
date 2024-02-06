@@ -24,8 +24,15 @@ public class SearchPatientUseCaseImpl implements SearchPatientUseCase{
     }
 
     private Specification<Patient> filters(SearchPatientCommand command) {
+
+        if (command == null) {
+            return null;
+        }
+
         return ((root, query, criteriaBuilder) -> {
+
             List<Predicate> predicates = new ArrayList<>();
+
             if(command.name() != null && !command.name().isBlank()) {
                 String term = "%" + command.name() + "%";
                 Predicate nameFilter = criteriaBuilder.like(root.get("name"), term);
