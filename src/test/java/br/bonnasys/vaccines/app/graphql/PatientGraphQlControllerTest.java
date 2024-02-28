@@ -1,9 +1,11 @@
 package br.bonnasys.vaccines.app.graphql;
 
 import br.bonnasys.vaccines.app.dto.response.PaginationResponse;
+import br.bonnasys.vaccines.app.dto.response.PatientResponse;
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientUseCase;
+import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.history.SearchPatientHistoryUseCase;
 import br.bonnasys.vaccines.infraestructure.configuration.MapStructConfiguration;
 import br.bonnasys.vaccines.support.builder.PatientBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +14,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,7 @@ import org.springframework.graphql.test.tester.GraphQlTester.Response;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.UUID;
 
 @ActiveProfiles("test")
 @GraphQlTest(includeFilters =
@@ -33,6 +37,9 @@ class PatientGraphQLControllerTest {
 
     @MockBean
     private GetPatientByIdUseCase getPatientByIdUseCase;
+
+    @SpyBean
+    private SearchPatientHistoryUseCase searchPatientHistoryUseCase;
 
     @Autowired
     private GraphQlTester graphql;
@@ -83,4 +90,65 @@ class PatientGraphQLControllerTest {
         Assertions.assertNotNull(actualResponse.getContent());
 
     }
+
+    /*
+    @Test
+    void check2() {
+        String id = UUID.randomUUID().toString();
+        Patient patient = PatientBuilder.any().withId(id).build();
+        Mockito.when(getPatientByIdUseCase.execute(id)).thenReturn(patient);
+        final var query = """
+                    query get($id: String) {
+                      getPatientById(id: $id) {
+                        id
+                        name
+                        phone
+                      }
+                    }
+                    """;
+
+        Response response = this.graphql.document(query)
+                .variable("id", id)
+                .execute();
+
+        var actualResponse = response.path("getPatientById")
+                .entity(PatientResponse.class)
+                .get();
+
+        Assertions.assertNotNull(actualResponse);
+        Assertions.assertEquals(id, actualResponse.getId());
+        Mockito.verify(searchPatientHistoryUseCase, Mockito.times(1)).execute(id);
+
+    }
+    }
+
+    @Test
+    void check3() {
+        String id = UUID.randomUUID().toString();
+        Patient patient = PatientBuilder.any().withId(id).build();
+        Mockito.when(getPatientByIdUseCase.execute(id)).thenReturn(patient);
+        final var query = """
+                query get($id: String) {
+                  getPatientById(id: $id) {
+                    id
+                    name
+                    phone
+                  }
+                }
+                """;
+
+        Response response = this.graphql.document(query)
+                .variable("id", id)
+                .execute();
+
+        var actualResponse = response.path("getPatientById")
+                .entity(PatientResponse.class)
+                .get();
+
+        Assertions.assertNotNull(actualResponse);
+        Assertions.assertEquals(id, actualResponse.getId());
+        Mockito.verify(getPatientByIdUseCase, Mockito.times(1)).execute(Mockito.any(String.class));
+        Mockito.verify(searchPatientHistoryUseCase, Mockito.times(0)).execute(id);
+
+    } */
 }
