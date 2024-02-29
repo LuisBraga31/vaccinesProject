@@ -3,7 +3,9 @@ package br.bonnasys.vaccines.domain.usecase.patient.create;
 
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.repository.PatientRepository;
+import br.bonnasys.vaccines.support.annotation.UnitTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +15,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@ActiveProfiles("test")
+@UnitTest
 class CreatePatientUseCaseImplTest {
 
     @Autowired

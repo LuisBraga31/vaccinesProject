@@ -3,8 +3,10 @@ package br.bonnasys.vaccines.domain.usecase.patient.delete;
 import br.bonnasys.vaccines.domain.exception.PatientNotFoundException;
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.repository.PatientRepository;
+import br.bonnasys.vaccines.support.annotation.UnitTest;
 import br.bonnasys.vaccines.support.builder.PatientBuilder;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +18,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
-@SpringBootTest
+@UnitTest
 class DeletePatientUseCaseImplTest {
 
     @Autowired
