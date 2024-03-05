@@ -15,6 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @ControllerTest(controllers = PatientApi.class)
 class PatientRestControllerTest {
 
@@ -26,7 +29,7 @@ class PatientRestControllerTest {
     private PatientMapper patientMapper;
 
     @Autowired
-    public MockMvc mvc;
+    private MockMvc mvc;
 
     @Test
     void dummy() throws Exception {
@@ -45,8 +48,11 @@ class PatientRestControllerTest {
                 .post("/patients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload);
-        final var aResponse= this.mvc.perform(aRequest)
+
+        final var aResponse = this.mvc.perform(aRequest)
                 .andDo(print());
+
+        aResponse.andExpect(status().isCreated());
 
     }
 

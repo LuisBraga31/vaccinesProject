@@ -1,6 +1,7 @@
 package br.bonnasys.vaccines.support.annotation;
 
 import org.junit.jupiter.api.Tag;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -14,5 +15,6 @@ import java.lang.annotation.Target;
 @Tag("e2eTest")
 @ActiveProfiles("Test")
 @SpringBootTest
+@AutoConfigureMockMvc
 public @interface E2ETest {
 }

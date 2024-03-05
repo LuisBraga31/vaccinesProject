@@ -1,19 +1,30 @@
 package br.bonnasys.vaccines.app.rest.controller;
 
+import br.bonnasys.vaccines.domain.repository.PatientRepository;
 import br.bonnasys.vaccines.support.annotation.E2ETest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @E2ETest
 @Testcontainers
 class PatientRestControllerITCase {
+    @Autowired
+    private MockMvc mvc;
+
+    @Autowired
+    private PatientRepository patientRepository;
 
     @Container
     private static final MySQLContainer<?> MYSQL_CONTAINER = new MySQLContainer<>("mysql:8.0.32")
@@ -27,8 +38,30 @@ class PatientRestControllerITCase {
     }
 
     @Test
-    void dummy() {
+    void givenValidPayloadWhenCallsCreatePatientThenAssertFields() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
+        Assertions.assertEquals(4, patientRepository.count());
+
+        final String payload = """
+                {
+                    "name": "Luis",
+                    "phone": "999999999",
+                    "email": "luisbraga@gmail.com",
+                    "birthdate": "2000-07-31"
+                }
+                """;
+
+        final var aRequest = MockMvcRequestBuilders
+                .post("/patients")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload);
+
+        final var aResponse = this.mvc.perform(aRequest)
+                .andDo(print());
+
+        aResponse.andExpect(status().isCreated());
+
+        Assertions.assertEquals(5, patientRepository.count());
     }
 
 
