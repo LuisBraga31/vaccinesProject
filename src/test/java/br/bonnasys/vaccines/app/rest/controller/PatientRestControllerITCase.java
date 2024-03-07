@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.containers.RabbitMQContainer;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,9 +33,18 @@ class PatientRestControllerITCase {
             .withPassword("Luis@mysql123")
             .withDatabaseName("vaccines");
 
+    @Container
+    private static final RabbitMQContainer RABBITMQ =
+            new RabbitMQContainer("rabbitmq:3.7.25-management-alpine")
+                .withAdminPassword("123456");
+
     @DynamicPropertySource
     private static void setDatasourceProperties(final DynamicPropertyRegistry registry) {
         registry.add("mysql.port", () -> MYSQL_CONTAINER.getMappedPort(3306));
+        registry.add("amqp.port", () -> RABBITMQ.getMappedPort(5672));
+        registry.add("amqp.host", () -> "localhost");
+        registry.add("amqp.password", () -> "123456");
+        registry.add("amqp.username", () -> "guest");
     }
 
     @Test

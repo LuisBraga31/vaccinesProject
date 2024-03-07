@@ -29,6 +29,6 @@ amqp:
       exchange: vaccines.events
       routing-key: vaccines.create
       queue: vaccines.create.queue
-      
+
 server:
   port: 8080
