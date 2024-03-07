@@ -1,9 +1,9 @@
 package br.bonnasys.vaccines.app.graphql;
 
-import br.bonnasys.vaccines.app.dto.response.PageResponse;
-import br.bonnasys.vaccines.app.dto.response.PaginationResponse;
-import br.bonnasys.vaccines.app.dto.response.PatientResponse;
-import br.bonnasys.vaccines.app.dto.response.VaccineRegistrationResponse;
+import br.bonnasys.vaccines.app.graphql.response.PageResponse;
+import br.bonnasys.vaccines.app.graphql.response.PaginationResponse;
+import br.bonnasys.vaccines.app.graphql.response.PatientResponse;
+import br.bonnasys.vaccines.app.graphql.response.VaccineRegistrationResponse;
 import br.bonnasys.vaccines.app.mapper.PatientMapper;
 import br.bonnasys.vaccines.domain.model.Patient;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.get.GetPatientByIdUseCase;
@@ -11,7 +11,6 @@ import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatient
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.SearchPatientUseCase;
 import br.bonnasys.vaccines.domain.usecase.patient.retrieve.search.history.SearchPatientHistoryUseCase;
 import lombok.AllArgsConstructor;
-import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

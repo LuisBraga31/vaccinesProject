@@ -3,3 +3,9 @@ mysql:
   password: Luis@mysql123
   host: localhost:3306
 show-sql: true
+
+amqp:
+  host: localhost
+  port: 5672
+  username: vaccines
+  password: 123456
