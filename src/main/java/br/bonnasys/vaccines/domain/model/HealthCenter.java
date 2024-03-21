@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.Map;
+import java.util.HashMap;
 
 @Getter
 @Setter
@@ -28,10 +29,15 @@ public class HealthCenter {
                     foreignKey = @ForeignKey(name="health_center_hc_id")))
     @MapKeyJoinColumn(name="vaccine_id", foreignKey = @ForeignKey(name = "health_center_vaccine_id"))
     @Column(name="amount")
-    private Map<Vaccine, Integer> stock;
+    private Map<Vaccine, Integer> stock = new HashMap<>();
 
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-
+    @PrePersist
+    public void beforeCreate() {
+        OffsetDateTime now = OffsetDateTime.now();
+        this.setCreatedAt(now);
+        this.setUpdatedAt(now);
+    }
 
 }
