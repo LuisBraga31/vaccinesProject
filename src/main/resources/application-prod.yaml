@@ -1,0 +1,11 @@
+mysql:
+  username: ${DATABASE_USERNAME}
+  password: ${DATABASE_PASSWORD}
+  host: ${DATABASE_HOST}
+show-sql: true
+
+amqp:
+  host: ${RABBITMQ_HOST}
+  port: ${RABBITMQ_PORT}
+  username: ${RABBITMQ_USERNAME}
+  password: ${RABBITMQ_PASSWORD}
