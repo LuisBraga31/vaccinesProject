@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class CreateVaccineListener {
 
+    public static Integer count =0;
     public static final String LISTENER_ID = "createVaccineListener";
-
+    public static final String PATIENT_LISTENER_ID = "vaccinationPatientListener";
     private final CreateVaccineUseCase createVaccineUseCase;
 
     @RabbitListener(id=LISTENER_ID, queues = "${amqp.queues.create-vaccines.queue}")
@@ -26,5 +27,29 @@ public class CreateVaccineListener {
         createVaccineUseCase.execute(command);
     }
 
+    @RabbitListener(id = PATIENT_LISTENER_ID, queues = "${amqp.queues.vaccinate-patient.queue}")
+    public void onVaccinatePatient(@Payload final String message) {
+        Message aRequest = Json.readValue(message, Message.class);
+        count++;
+        log.info("""
+                /                                                 %d
+                =====================================================
+                NOVA SOLICITAÇÃO DE VACINAÇÃO:             21/03/2024
+                =====================================================
+                PACIENTE: %s
+                =====================================================
+                VACINA: %s
+                =====================================================
+                CENTRO DE SAÚDE: %s
+                =====================================================
+                """.formatted(
+                count,
+                aRequest.patientName(),
+                aRequest.vaccineName(),
+                aRequest.healthCenterName()));
+    }
+
+
+    public record Message(String patientName, String vaccineName, String healthCenterName) {}
 
 }

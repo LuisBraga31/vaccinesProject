@@ -3,6 +3,7 @@ package br.bonnasys.vaccines.domain.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.io.Serializable;
 
 import java.time.OffsetDateTime;
 
@@ -28,4 +29,14 @@ public class VaccineRegistration {
     private HealthCenter healthCenter;
 
     private OffsetDateTime registrationDate;
+
+    public static VaccineRegistration from(Patient patient, Vaccine vaccine, HealthCenter healthCenter) {
+        VaccineRegistration registration = new VaccineRegistration();
+        registration.setPatient(patient);
+        registration.setVaccine(vaccine);
+        registration.setHealthCenter(healthCenter);
+        registration.setRegistrationDate(OffsetDateTime.now());
+        return registration;
+    }
+
 }

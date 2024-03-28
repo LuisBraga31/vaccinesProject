@@ -2,7 +2,6 @@ mysql:
   username: root
   password: Luis@mysql123
   host: localhost:3306
-show-sql: true
 
 amqp:
   host: localhost

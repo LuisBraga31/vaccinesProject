@@ -28,7 +28,7 @@ public class Patient {
     private OffsetDateTime createdAt; //yyyy-MM-ddTHH:mm:ss-Z 2024-01-11T20:59:00-03:00
     private OffsetDateTime updatedAt;
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<VaccineRegistration> history;
 
     public Patient(String name, String phone, String email, LocalDate birthdate) {
